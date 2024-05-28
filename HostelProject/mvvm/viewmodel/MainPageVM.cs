@@ -15,15 +15,15 @@ namespace HostelProject.mvvm.viewmodel
     public class MainPageVM : BaseVM // страница менеджера
     {
 
-        public VmCommand Create { get; set; } // кнопка "Добавить клиента"
-        public VmCommand Edit { get; set; } // кнопка "Редактировать клиента"
-        public VmCommand Delete { get; set; } // кнопка "Удалить клиента"
-        public VmCommand CreateRoom { get; set; } // кнопка "Добавить тренера"
-        public VmCommand EditRoom { get; set; } // кнопка "Редактировать тренера"
-        public VmCommand RemoveRoom { get; set; } // кнопка "Удалить тренера"
-        public VmCommand DeleteType { get; set; } // кнопка "Удалить вид абонемента"
-        public VmCommand CreateType { get; set; } // кнопка "Добавить вид абонемента"
-        public VmCommand EditType { get; set; } // кнопка "Редактировать вид абонемента"
+        public VmCommand Create { get; set; } // кнопка "Добавить гостя"
+        public VmCommand Edit { get; set; } // кнопка "Редактировать гостя"
+        public VmCommand Delete { get; set; } // кнопка "Удалить гостя"
+        public VmCommand CreateRoom { get; set; } // кнопка "Добавить номера"
+        public VmCommand EditRoom { get; set; } // кнопка "Редактировать номер"
+        public VmCommand RemoveRoom { get; set; } // кнопка "Удалить номер"
+        public VmCommand DeleteType { get; set; } // кнопка "Удалить тип"
+        public VmCommand CreateType { get; set; } // кнопка "Добавить тип"
+        public VmCommand EditType { get; set; } // кнопка "Редактировать тип"
 
 
         private MainVM mainVM;
@@ -31,12 +31,12 @@ namespace HostelProject.mvvm.viewmodel
         private ObservableCollection<Guest> guests;
         private ObservableCollection<Room> rooms;
         private ObservableCollection<model.Type> types;
-        public ObservableCollection<Room> AllRooms { get; set; } // список тренеров для фильтра
+        public ObservableCollection<Room> AllRooms { get; set; } // список номеров для фильтра
         
         private Room selectedRoom;
 
 
-        public Room SelectedRoom // выбранный из фильтра тренер, а также выбранный из списка тренеров тренер
+        public Room SelectedRoom // выбранный из фильтра номер, а также выбранный из списка номеров номер
         {
             get => selectedRoom;
             set
@@ -48,7 +48,7 @@ namespace HostelProject.mvvm.viewmodel
         }
         
 
-        public string SearchText // текст, по которому мы ищем клиента
+        public string SearchText // текст, по которому мы ищем гостя
         {
             get => searchText;
             set
@@ -58,9 +58,9 @@ namespace HostelProject.mvvm.viewmodel
             }
         }
 
-        public Guest SelectedGuest { get; set; } // выбранный из списка клиентов клиент
-        public Type SelectedType { get; set; } // выбранный из списка клиентов клиент
-        public ObservableCollection<Guest> Guests // список клиентов
+        public Guest SelectedGuest { get; set; } // выбранный из списка гостей гость
+        public Type SelectedType { get; set; } // выбранный из списка гостей гость
+        public ObservableCollection<Guest> Guests // список гостей
         {
             get => guests;
             set
@@ -70,7 +70,7 @@ namespace HostelProject.mvvm.viewmodel
             }
         }
 
-        public ObservableCollection<Room> Rooms // список тренеров
+        public ObservableCollection<Room> Rooms // список номеров
         {
             get => rooms;
             set
@@ -79,7 +79,7 @@ namespace HostelProject.mvvm.viewmodel
                 Signal();
             }
         }
-        public ObservableCollection<model.Type> Types // список видов абонемента
+        public ObservableCollection<model.Type> Types // список типов номеров
 
         {
             get => types;
@@ -93,37 +93,37 @@ namespace HostelProject.mvvm.viewmodel
 
         public MainPageVM()
         {
-            // получение списка абонементов для фильтра
+            // получение списка типов для фильтра
             AllRooms = new ObservableCollection<Room>(RoomRepository.Instance.GetAllRooms());
             AllRooms.Insert(0, new Room { Id = 0, RoomNumber = "Все номера"});
             SelectedRoom = AllRooms[0];
 
 
-            // получение списка всех клиентов
+            // получение списка всех гостей
             string sql = "SELECT g.guest_id, g.name, g.secondname, g.phone_number, g.room_id, g.in_date, g.out_date, r.room_number as room_number FROM guests g, rooms r WHERE g.room_id = r.room_id AND g.out_date Is NULL;";
             Guests = new ObservableCollection<Guest>(GuestRepository.Instance.GetAllGuests(sql));
 
-            // получение списка всех тренеро
+            // получение списка всех номеров
             Rooms = new ObservableCollection<Room>(RoomRepository.Instance.GetAllRooms());
 
-            // получение списка всех видов абонемента
+            // получение списка всех типов номеров
             Types = new ObservableCollection<model.Type>(TypeRepository.Instance.GetAllTypes());
 
 
-            // команда на открытие страницы добавления клиента
+            // команда на открытие страницы добавления гостя
             Create = new VmCommand(() =>
             {
                 mainVM.CurrentPage = new SettingGuestPage(mainVM);
             });
 
-            // команда на открытие страницы редактирования клиента, если был выбран клиент из списка
+            // команда на открытие страницы редактирования гостя, если был выбран гость из списка
             Edit = new VmCommand(() => {
                 if (SelectedGuest == null)
                     return;
                 mainVM.CurrentPage = new SettingGuestPage(mainVM, SelectedGuest);
             });
 
-            // команда на удаление клиента 
+            // команда на удаление гость
             Delete = new VmCommand(() =>
             {
                 if (SelectedGuest == null)
@@ -133,28 +133,28 @@ namespace HostelProject.mvvm.viewmodel
                 {
                     GuestRepository.Instance.Remove(SelectedGuest);
                     //RoomRepository.Instance.UpdatePeopleCountMinus(SelectedRoom);
-                    Guests.Remove(SelectedGuest); // удаление клиента из коллекции
+                    Guests.Remove(SelectedGuest); // удаление гостя из коллекции
 
 
                 }
             });
 
-            // команда на добаления тренера
+            // команда на добаления номера
             CreateRoom = new VmCommand(() =>
             {
-                // открытие страницы добавления тренера
+                // открытие страницы добавления номера
                 mainVM.CurrentPage = new SettingRoomPage(mainVM);
 
             });
 
-            // команда на редактирование тренера
+            // команда на редактирование номера
             EditRoom = new VmCommand(() =>
             {
-                // открытие страницы редактирования выбранного тренера
+                // открытие страницы редактирования выбранного номера
                 mainVM.CurrentPage = new SettingRoomPage(mainVM, SelectedRoom);
             });
 
-            // команда на удаление выбранного тренера
+            // команда на удаление выбранного номера
             RemoveRoom = new VmCommand(() => {
                 if (SelectedRoom == null)
                     return;
@@ -165,28 +165,28 @@ namespace HostelProject.mvvm.viewmodel
                     RoomRepository.Instance.Remove(SelectedRoom);
                     RoomRepository.Instance.UpdatePeopleCountMinus(SelectedRoom);
 
-                    // обновление списка тренеров
+                    // обновление списка номеров
                     Rooms = new ObservableCollection<Room>(RoomRepository.Instance.GetAllRooms());
                 }
             });
 
 
-            // команда на удаление вида абонемента
+            // команда на удаление типа
             CreateType = new VmCommand(() =>
             {
-                // открытие страницы добавления вида абонемента
+                // открытие страницы добавления типа
                 mainVM.CurrentPage = new SettingTypePage(mainVM);
             });
 
-            // команда на редактирование выбранного вида абонемента
+            // команда на редактирование выбранного типа
             EditType = new VmCommand(() => {
                 if (SelectedType == null)
                     return;
-                // открытие страницы редактирования вида абонемента
+                // открытие страницы редактирования типа
                 mainVM.CurrentPage = new SettingTypePage(mainVM, SelectedType);
             });
 
-            // команда на удаление выбранного вида абонемента
+            // команда на удаление выбранного типа
             DeleteType = new VmCommand(() =>
             {
                 if (SelectedType == null)
@@ -209,7 +209,7 @@ namespace HostelProject.mvvm.viewmodel
 
         private void Search()
         {
-            // список клиентов после фильтрации или поиска
+            // список гостей после фильтрации или поиска
             Guests = new ObservableCollection<Guest>(
                 GuestRepository.Instance.Search(SearchText, SelectedRoom));
         }

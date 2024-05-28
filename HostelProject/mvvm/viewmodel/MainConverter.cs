@@ -18,13 +18,13 @@ namespace HostelProject.mvvm.viewmodel
                 return Visibility.Collapsed;
 
             string p = parameter.ToString();
-            if (p == "MainPage" && value is MainPage) // если открыта страница менеджера - иконка видна
+            if (p == "MainPage" && value is MainPage) // если открыта страница админа - иконка видна
                 return Visibility.Visible;
-            if (p == "SettingGuestPage" && value is SettingGuestPage) // если открыта страница добавления/ редактирования клиента - иконка видна
+            if (p == "SettingGuestPage" && value is SettingGuestPage) // если открыта страница добавления/ редактирования гостя - иконка видна
                 return Visibility.Visible;
-            if (p == "SettingRoomPage" && value is SettingRoomPage) // если открыта страница добавления/ редактирования тренера - иконка видна
+            if (p == "SettingRoomPage" && value is SettingRoomPage) // если открыта страница добавления/ редактирования номера - иконка видна
                 return Visibility.Visible;
-            if (p == "SettingTypePage" && value is SettingTypePage) // если открыта страница добавления/ редактирования вида абонемента - иконка видна
+            if (p == "SettingTypePage" && value is SettingTypePage) // если открыта страница добавления/ редактирования типа - иконка видна
                 return Visibility.Visible;
 
             return Visibility.Collapsed; // в остальных случаях скрыта

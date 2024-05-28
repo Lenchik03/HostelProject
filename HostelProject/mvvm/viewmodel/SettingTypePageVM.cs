@@ -19,7 +19,7 @@ namespace HostelProject.mvvm.viewmodel
         private Type type = new();
 
 
-        public Type Type // вид абонемента, который мы добавляем или редактируем
+        public Type Type // тип, который мы добавляем или редактируем
         {
             get => type;
             set
@@ -30,22 +30,22 @@ namespace HostelProject.mvvm.viewmodel
         }
         public SettingTypePageVM()
         {
-            //команда на добавление в базу или обновление вида абонемента в базе
+            //команда на добавление в базу или обновление типа в базе
             Save = new VmCommand(() =>
             {
                 Type.Del = 0;
                 if (Type.Id == 0)
                 {
-                    TypeRepository.Instance.Add(Type); // добавление вида абонемента
+                    TypeRepository.Instance.Add(Type); // добавление типа
 
                 }
                 else
                 {
-                    // редактирование выбранного вида абонемента
+                    // редактирование выбранного типа
                     TypeRepository.Instance.Update(Type);
                 }
 
-                // после успешного добавления или редактирования вида абонемента откроется страница менеджера
+                // после успешного добавления или редактирования типа откроется страница менеджера
                 mainVM.CurrentPage = new MainPage(mainVM);
             });
 

@@ -27,5 +27,10 @@ namespace HostelProject
         {
             MainVM.Instance.CurrentPage = new MainPage(MainVM.Instance);
         }
+
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            
+        }
     }
 }

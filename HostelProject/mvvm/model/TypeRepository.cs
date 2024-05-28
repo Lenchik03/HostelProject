@@ -21,7 +21,7 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на чтение всех клиентов с БД
+        // запрос на чтение всех типов с БД
         internal IEnumerable<Type> GetAllTypes()
         {
             var result = new List<Type>();
@@ -48,7 +48,7 @@ namespace HostelProject.mvvm.model
             return result;
         }
 
-        //запрос на добавление клиента в БД
+        //запрос на добавление типа в БД
         internal void Add(Type type)
         {
             try
@@ -60,7 +60,7 @@ namespace HostelProject.mvvm.model
                 int id = MySqlDB.Instance.GetAutoID("types");
 
                 string sql = "INSERT INTO types VALUES (0, @title, @del)";
-                using (var mc = new MySqlCommand(sql, connect)) // INSERT - добавление клиентов в БД
+                using (var mc = new MySqlCommand(sql, connect)) 
                 {
                     mc.Parameters.Add(new MySqlParameter("title", type.Title));
                     mc.Parameters.Add(new MySqlParameter("del", type.Del));
@@ -73,7 +73,7 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на редактирование клиента в БД(кнопка "Редактировать клиента")
+        // запрос на редактирование типа в БД
         internal void Update(Type type)
         {
             try
@@ -84,7 +84,7 @@ namespace HostelProject.mvvm.model
 
 
                 string sql = "UPDATE types SET title = @title WHERE type_id = '" + type.Id + "';";
-                using (var mc = new MySqlCommand(sql, connect)) // UPDATE - обновление данных о клиенте
+                using (var mc = new MySqlCommand(sql, connect)) 
                 {
                     mc.Parameters.Add(new MySqlParameter("title", type.Title));
                     mc.ExecuteNonQuery();
@@ -96,7 +96,7 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на удаление клиента из БД(кнопка "Удалить клиента")
+        // запрос на удаление типа из БД(кнопка "Удалить тип")
         internal void Remove(Type type)
         {
             try
@@ -105,7 +105,7 @@ namespace HostelProject.mvvm.model
                 if (connect == null)
                     return;
 
-                // запрос на изменение tag(тренер, которого мы выбираем, помечается удаленным)
+           
                 string sql = "UPDATE types SET del = @del WHERE type_id = '" + type.Id + "';";
 
                 using (var mc = new MySqlCommand(sql, connect))

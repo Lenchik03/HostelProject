@@ -26,7 +26,7 @@ namespace HostelProject.mvvm.model
                 return instance;
             }
         }
-        // запрос на получение всех менеджеров из БД
+        // запрос на получение всех админов из БД
         internal IEnumerable<Admin> GetAllManagers()
         {
             var result = new List<Admin>();
@@ -59,7 +59,7 @@ namespace HostelProject.mvvm.model
             return result;
         }
 
-        //запрос на добавление менеджера в БД
+        //запрос на добавление админа в БД
         internal void Add(Admin admin)
         {
             try
@@ -86,8 +86,8 @@ namespace HostelProject.mvvm.model
 
         }
 
-        // запрос на чтение таблицы менеджеров с параметром 
-        //с целью получения менеджера с помощью сравнения введенных менеджером данных с имеющимися в базе данных.
+        // запрос на чтение таблицы админов с параметром 
+        //с целью получения админов с помощью сравнения введенных админом данных с имеющимися в базе данных.
         internal Admin ActiveAdmin(string username, string password)
         {
             try

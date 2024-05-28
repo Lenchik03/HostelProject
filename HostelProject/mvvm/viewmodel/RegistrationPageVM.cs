@@ -14,7 +14,7 @@ namespace HostelProject.mvvm.viewmodel
         private MainVM mainVM;
         public VmCommand Save { get; set; } // кнопка "Зарегистрироваться"
         private Admin selectedAdmin = new();
-        public Admin SelectedAdmin // менеджер, которого мы регистрируем 
+        public Admin SelectedAdmin // админ, которого мы регистрируем 
         {
             get => selectedAdmin;
             set
@@ -25,10 +25,10 @@ namespace HostelProject.mvvm.viewmodel
         }
         public RegistrationPageVM()
         {
-            // Команда на создание нового менеджера
+            // Команда на создание нового админа
             Save = new VmCommand(() =>
             {
-                SelectedAdmin.Password = Password; // присвоение менеджеру нового пароля
+                SelectedAdmin.Password = Password; // присвоение админу нового пароля
                 AdminRepository.Instance.Add(SelectedAdmin);
 
                 // после успешной регистрации откроется страница авторизации
@@ -48,7 +48,7 @@ namespace HostelProject.mvvm.viewmodel
         }
 
         private PasswordBox passwrdBox;
-        public string Password // введенный менеджером пароль
+        public string Password // введенный админом пароль
         {
             get { return passwrdBox.Password; }
             set

@@ -22,7 +22,7 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на чтение всех клиентов с БД
+        // запрос на чтение всех гостей с БД
         internal IEnumerable<Guest> GetAllGuests(string sql)
         {
             var result = new List<Guest>();
@@ -55,7 +55,7 @@ namespace HostelProject.mvvm.model
             return result;
         }
 
-        //запрос на добавление клиента в БД
+        //запрос на добавление гостя в БД
         internal void Add(Guest guest)
         {
             try
@@ -67,7 +67,7 @@ namespace HostelProject.mvvm.model
                 int id = MySqlDB.Instance.GetAutoID("guests");
 
                 string sql = "INSERT INTO guests VALUES (0, @name, @secondname, @phone_number, @room_id, @in_date, @out_date)";
-                using (var mc = new MySqlCommand(sql, connect)) // INSERT - добавление клиентов в БД
+                using (var mc = new MySqlCommand(sql, connect)) // INSERT - добавление гостя в БД
                 {
                     mc.Parameters.Add(new MySqlParameter("name", guest.Name));
                     mc.Parameters.Add(new MySqlParameter("secondname", guest.SecondName));
@@ -90,7 +90,7 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на редактирование клиента в БД(кнопка "Редактировать клиента")
+        // запрос на редактирование гостя в БД(кнопка "Редактировать гостя")
         internal void Update(Guest guest)
         {
             try
@@ -116,7 +116,7 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на удаление клиента из БД(кнопка "Удалить клиента")
+        // запрос на удаление гостя из БД(кнопка "Удалить гостя")
         internal void Remove(Guest guest)
         {
             try
@@ -128,14 +128,14 @@ namespace HostelProject.mvvm.model
                 if (guest.RoomId == 1)
                     return;
                 string sql = "UPDATE guests SET out_date = @out_date WHERE guest_id = '" + guest.Id + "';";
-                using (var mc = new MySqlCommand(sql, connect)) // UPDATE - обновление данных о клиенте
+                using (var mc = new MySqlCommand(sql, connect)) // UPDATE - обновление данных о госте
                 {
                     mc.Parameters.Add(new MySqlParameter("out_date", DateTime.Now));
                     mc.ExecuteNonQuery();
                 }
 
                 string sql1 = "UPDATE rooms SET people_count = people_count-1 WHERE room_id = '" + guest.RoomId + "';";
-                using (var mc = new MySqlCommand(sql1, connect)) // UPDATE - обновление данных о клиенте
+                using (var mc = new MySqlCommand(sql1, connect)) // UPDATE - обновление данных о госте
                 {
                     //mc.Parameters.Add(new MySqlParameter("people_count", room.PeopleCount - 1));
                     mc.ExecuteNonQuery();
@@ -150,8 +150,8 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на выборку клиентов(поиск клиента) по параметам ФИО клиента и номера телефона клиента
-        // + запрос на фильтрацию по ФИО тренера, по названию абонемента, по виду абонемента
+        // запрос на выборку гостей(поиск гостей) по параметам имя, фамилия гостя и номера телефона гостя
+        // + запрос на фильтрацию по номерам комнат, по типу комнат
         internal IEnumerable<Guest> Search(string searchText, Room selectedRoom)
         {
             try

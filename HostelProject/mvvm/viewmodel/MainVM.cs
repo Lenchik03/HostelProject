@@ -26,7 +26,7 @@ namespace HostelProject.mvvm.viewmodel
             }
         }
         public VmCommand SignOut { get; set; } // кнопка "Выйти"
-        public VmCommand MainPage { get; set; } // иконка Arasaka Power
+        public VmCommand MainPage { get; set; } // кнопка "Главная"
 
         public MainVM()
         {

@@ -39,7 +39,7 @@
         </Menu>
         <Frame NavigationUIVisibility="Hidden"
        Content="{Binding CurrentPage}"
-       Grid.Row="1"/>
+       Grid.Row="1" Navigated="Frame_Navigated"/>
 
     </Grid>
 </Window>

@@ -19,7 +19,7 @@ namespace HostelProject.mvvm.viewmodel
 
         private Room room = new();
 
-        public Room Room // клиент, которого мы добавляем или редактируем
+        public Room Room // номер, который мы добавляем или редактируем
         {
             get => room;
             set
@@ -29,7 +29,7 @@ namespace HostelProject.mvvm.viewmodel
             }
         }
 
-        public Capacity SelectedCapacity // выбранный абонемент из ComboBox`a
+        public Capacity SelectedCapacity // выбранное кол-во мест в номере из ComboBox`a
         {
             get => selectedCapacity; set
             {
@@ -37,7 +37,7 @@ namespace HostelProject.mvvm.viewmodel
                 Signal();
             }
         }
-        public Type SelectedType // выбранный вид абонемента из ComboBox`a
+        public Type SelectedType // выбранный тип из ComboBox`a
         {
             get => selectedType; set
             {
@@ -47,28 +47,28 @@ namespace HostelProject.mvvm.viewmodel
         }
 
         
-        public List<Capacity> AllCapacity { get; set; } // список абонементов (ComboBox абонментов)
-        public List<Type> AllType { get; set; } // список видов абонемента (ComboBox видов)
+        public List<Capacity> AllCapacity { get; set; } // список мест (ComboBox абонментов)
+        public List<Type> AllType { get; set; } // список типов (ComboBox видов)
 
         public SettingRoomPageVM()
         {
-            // получение списка абонементов
+            // получение списка мест
             AllCapacity = (List<Capacity>?)CapacityRepository.Instance.GetAllCapacities();
 
-            // получение списка видов абонемента
+            // получение списка типов
             AllType = (List<Type>?)TypeRepository.Instance.GetAllTypes();
 
 
-            //команда на добавление в базу или обновление клиента в базе
+            //команда на добавление в базу или обновление гостя в базе
             Save = new VmCommand(() => {
 
-                // если из Combobox`а НЕ выбран абонемент, то по умолчанию будет выбран первый абонемент
+                // если из Combobox`а НЕ выбрано кол-во мест, то по умолчанию будет выбран одноместный
                 Room.CapacityId = SelectedCapacity?.Id ?? 1;
 
-                // если из Combobox`а НЕ выбран вид абонемента, то по умолчанию будет выбран первый вид
+                // если из Combobox`а НЕ выбран тип, то по умолчанию будет выбран первый вид
                 Room.TypeId = SelectedType?.Id ?? 1;
 
-                Room.Del = 0; // по умолчанию тренер не удален
+                Room.Del = 0; // по умолчанию номер не удален
                 
                 if (Room.Id == 0)
                 {
@@ -79,16 +79,15 @@ namespace HostelProject.mvvm.viewmodel
                     else
                         Room.Capacity = 4;
 
-                    RoomRepository.Instance.Add(Room); // добавление клиента
+                    RoomRepository.Instance.Add(Room); // добавление номер
 
                 }
                 else
                 {
-                    RoomRepository.Instance.Update(Room); // если клиент выбран из списка - редактирование клиента
-
+                    RoomRepository.Instance.Update(Room); // если номер выбран из списка - редактирование номера
                 }
 
-                mainVM.CurrentPage = new MainPage(mainVM); // после успешного добавления или редактирования клиента, откроется страница менеджера
+                mainVM.CurrentPage = new MainPage(mainVM); // после успешного добавления или редактирования номера, откроется главное меню
             });
 
 

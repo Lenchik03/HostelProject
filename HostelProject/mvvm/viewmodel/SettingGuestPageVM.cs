@@ -19,7 +19,7 @@ namespace HostelProject.mvvm.viewmodel
 
         private Guest guest = new();
 
-        public Guest Guest // клиент, которого мы добавляем или редактируем
+        public Guest Guest // гость, которого мы добавляем или редактируем
         {
             get => guest;
             set
@@ -29,7 +29,7 @@ namespace HostelProject.mvvm.viewmodel
             }
         }
 
-        public Room SelectedRoom // выбранный тренер из ComboBox`a
+        public Room SelectedRoom // выбранный номер из ComboBox`a
         {
             get => selectedRoom; set
             {
@@ -37,17 +37,17 @@ namespace HostelProject.mvvm.viewmodel
                 Signal();
             }
         }
-        public List<Room> AllRooms { get; set; } // список абонементов (ComboBox абонментов)
+        public List<Room> AllRooms { get; set; } // список типов (ComboBox типов)
 
         public SettingGuestPageVM()
         {
-            // получение списка абонементов
+            // получение списка типов
             AllRooms = (List<Room>?)RoomRepository.Instance.GetAllRooms();
 
-            //команда на добавление в базу или обновление клиента в базе
+            //команда на добавление в базу или обновление типов в базе
             Save = new VmCommand(() => {
 
-                // если из Combobox`а НЕ выбран абонемент, то по умолчанию будет выбран первый абонемент
+                // если из Combobox`а НЕ выбран тип, то по умолчанию будет выбран первый тип
                 Guest.RoomId = SelectedRoom?.Id ?? 1;
 
                 //if (SelectedRoom == null)
@@ -63,7 +63,7 @@ namespace HostelProject.mvvm.viewmodel
                         {
 
                             RoomRepository.Instance.UpdatePeopleCount(SelectedRoom);
-                            GuestRepository.Instance.Add(Guest); // добавление клиента
+                            GuestRepository.Instance.Add(Guest); // добавление гостя
                             mainVM.CurrentPage = new MainPage(mainVM);
                         }
                         else
@@ -76,11 +76,11 @@ namespace HostelProject.mvvm.viewmodel
                     else
                     {
                         //SelectedRoom.Id = Guest.RoomId;
-                        GuestRepository.Instance.Update(Guest); // если клиент выбран из списка - редактирование клиента
+                        GuestRepository.Instance.Update(Guest); // если гость выбран из списка - редактирование гостя
                         mainVM.CurrentPage = new MainPage(mainVM);
                     }
                 //}
-                 // после успешного добавления или редактирования клиента, откроется страница менеджера
+                 // после успешного добавления или редактирования гостя, откроется главное меню
             });
 
             //Delete = new VmCommand(() => {
