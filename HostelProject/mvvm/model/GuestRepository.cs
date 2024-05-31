@@ -159,7 +159,7 @@ namespace HostelProject.mvvm.model
                 if (selectedYear != null && selectedYear.ID != 0)
                     sql += " AND YEAR(g.out_date) = " + selectedYear.Title;
                 sql += " ORDER BY g.guest_id;";
-
+                //dfdvf
                 return GetAllGuests(sql);
             }
             catch (Exception ex)
