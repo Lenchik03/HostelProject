@@ -1,4 +1,4 @@
-﻿<Page x:Class="HostelProject.mvvm.view.SettingTypePage"
+﻿<Page x:Class="HostelProject.mvvm.view.SettingYearPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,9 +7,9 @@
       xmlns:vm="clr-namespace:HostelProject.mvvm.viewmodel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      DataContext="{DynamicResource typeVM}">
+      DataContext="{DynamicResource yearVM}">
     <Page.Resources>
-        <vm:SettingTypePageVM x:Key="typeVM"/>
+        <vm:SettingYearPageVM x:Key="yearVM"/>
     </Page.Resources>
     <Grid>
         <Grid.Background>
@@ -21,9 +21,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Width="400">
-            <StackPanel DataContext="{Binding Type}">
+            <StackPanel DataContext="{Binding Year}">
 
-                <Label Content="Название типа комнаты"/>
+                <Label Content="Год"/>
                 <TextBox Text="{Binding Title}"/>
 
 

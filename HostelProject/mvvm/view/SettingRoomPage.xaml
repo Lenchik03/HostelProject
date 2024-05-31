@@ -12,6 +12,9 @@
         <vm:SettingRoomPageVM x:Key="roomVM"/>
     </Page.Resources>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/mvvm/view/номера.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
@@ -30,7 +33,7 @@
             <ComboBox ItemsSource="{Binding AllType}" SelectedItem="{Binding SelectedType}" DisplayMemberPath="Title"/>
            
 
-            <Button Content="Сохранить" Command="{Binding Save}" Width="70" Margin="5"/>
+            <Button Content="Сохранить" Command="{Binding Save}" Width="70" Margin="5" Background="#FFD98A61"/>
         </StackPanel>
 
     </Grid>

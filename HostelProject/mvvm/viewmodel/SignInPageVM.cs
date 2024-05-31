@@ -20,7 +20,7 @@ namespace HostelProject.mvvm.viewmodel
         {
             Open = new VmCommand(() =>
             {
-                // получение активного менеджера с помощью срвнения введенных данных с имеющимеся в базе
+                // получение активного админа с помощью срвнения введенных данных с имеющимеся в базе
                 ActiveAdmin.Instance.Admin = AdminRepository.Instance.ActiveAdmin(UserName, Password);
 
                 var manager = ActiveAdmin.Instance.Admin;
@@ -31,7 +31,7 @@ namespace HostelProject.mvvm.viewmodel
 
                 else
                 {
-                    // открытие страницы менеджера
+                    // открытие главного меню
                     MainPage mainPage = new MainPage(MainVM.Instance);
                     MainVM.Instance.CurrentPage = mainPage;
                 }

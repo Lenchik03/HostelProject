@@ -35,7 +35,7 @@
 
 
         <Menu HorizontalAlignment="Right">
-            <MenuItem Header="Выйти" Visibility="{Binding CurrentPage, Converter={StaticResource signOutConv}, ConverterParameter=MainPage}" Command="{Binding SignOut}" Margin="5,25,5,5"/>
+            <MenuItem Header="Выйти" Visibility="{Binding CurrentPage, Converter={StaticResource signOutConv}, ConverterParameter=MainPage}" Command="{Binding SignOut}" />
         </Menu>
         <Frame NavigationUIVisibility="Hidden"
        Content="{Binding CurrentPage}"

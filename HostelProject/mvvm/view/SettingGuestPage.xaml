@@ -12,6 +12,10 @@
         <vm:SettingGuestPageVM x:Key="guestVM"/>
     </Page.Resources>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/mvvm/view/фон гости.png"/>
+        </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
@@ -42,7 +46,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Сохранить" Command="{Binding Save}" Width="70" Margin="5"/>
+            <Button Content="Сохранить" Command="{Binding Save}" Width="70" Margin="5" Background="#FFD98A61"/>
             <!--<Button Content="Выселить гостя" Command="{Binding Delete}" Width="100" Margin="5" x:Name="but"/>-->
             </StackPanel>
         </StackPanel>

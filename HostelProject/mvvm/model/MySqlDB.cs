@@ -15,18 +15,28 @@ namespace HostelProject.mvvm.model
         private MySqlDB()
         {
             MySqlConnectionStringBuilder stringBuilder = new();
-            stringBuilder.UserID = "student";
-            stringBuilder.Password = "student";
-            stringBuilder.Database = "baza_gostinitsa";
-            stringBuilder.Server = "192.168.200.13";
+            stringBuilder.UserID = "root";
+            stringBuilder.Password = "FktyfYF03065005";
+            stringBuilder.Database = "hosteldb";
+            stringBuilder.Server = "localhost";
             stringBuilder.CharacterSet = "utf8mb4";
+            //MySqlConnection = new MySqlConnection("server=192.168.200.13;user=student;password=student;database=tasksDB;Character Set=utf8mb4");
             mySqlConnection = new MySqlConnection(stringBuilder.ToString());
             OpenConnection();
 
             //MySqlConnectionStringBuilder stringBuilder = new();
+            //stringBuilder.UserID = "student";
+            //stringBuilder.Password = "student";
+            //stringBuilder.Database = "baza_gostinitsa";
+            //stringBuilder.Server = "192.168.200.13";
+            //stringBuilder.CharacterSet = "utf8mb4";
+            //mySqlConnection = new MySqlConnection(stringBuilder.ToString());
+            //OpenConnection();
+
+            //MySqlConnectionStringBuilder stringBuilder = new();
             //stringBuilder.UserID = "root";
             //stringBuilder.Password = "1111";
-            //stringBuilder.Database = "baza_gostinitsa";
+            //stringBuilder.Database = "baza_gostinitsa_1";
             //stringBuilder.Server = "localhost";
             //stringBuilder.CharacterSet = "utf8mb4";
             ////MySqlConnection = new MySqlConnection("server=192.168.200.13;user=student;password=student;database=tasksDB;Character Set=utf8mb4");

@@ -9,7 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="mvvm\view\номера.png" />
+    <None Remove="mvvm\view\тип.png" />
+    <None Remove="mvvm\view\фон гости.png" />
+    <None Remove="mvvm\view\фон.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MySqlConnector" Version="2.3.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="mvvm\view\номера.png" />
+    <Resource Include="mvvm\view\тип.png" />
+    <Resource Include="mvvm\view\фон гости.png" />
+    <Resource Include="mvvm\view\фон.png" />
   </ItemGroup>
 
 </Project>

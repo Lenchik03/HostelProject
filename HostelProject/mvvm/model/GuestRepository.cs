@@ -67,7 +67,7 @@ namespace HostelProject.mvvm.model
                 int id = MySqlDB.Instance.GetAutoID("guests");
 
                 string sql = "INSERT INTO guests VALUES (0, @name, @secondname, @phone_number, @room_id, @in_date, @out_date)";
-                using (var mc = new MySqlCommand(sql, connect)) // INSERT - добавление гостя в БД
+                using (var mc = new MySqlCommand(sql, connect)) // INSERT - добавление гостей в БД
                 {
                     mc.Parameters.Add(new MySqlParameter("name", guest.Name));
                     mc.Parameters.Add(new MySqlParameter("secondname", guest.SecondName));
@@ -77,12 +77,6 @@ namespace HostelProject.mvvm.model
                     mc.Parameters.Add(new MySqlParameter("out_date", guest.OutDate));
                     mc.ExecuteNonQuery();
                 }
-
-                //string sql1 = "UPDATE rooms SET people_count = people_count + 1;";
-                //using (var mc = new MySqlCommand(sql1, connect)) // INSERT - добавление клиентов в БД
-                //{
-                //    mc.ExecuteNonQuery();
-                //}
             }
             catch (Exception ex)
             {
@@ -101,7 +95,7 @@ namespace HostelProject.mvvm.model
 
 
                 string sql = "UPDATE guests SET name = @name, secondname = @secondname, room_id = @room_id, out_date = @out_date WHERE guest_id = '" + guest.Id + "';";
-                using (var mc = new MySqlCommand(sql, connect)) // UPDATE - обновление данных о клиенте
+                using (var mc = new MySqlCommand(sql, connect)) // UPDATE - обновление данных о госте
                 {
                     mc.Parameters.Add(new MySqlParameter("name", guest.Name));
                     mc.Parameters.Add(new MySqlParameter("secondname", guest.SecondName));
@@ -137,7 +131,6 @@ namespace HostelProject.mvvm.model
                 string sql1 = "UPDATE rooms SET people_count = people_count-1 WHERE room_id = '" + guest.RoomId + "';";
                 using (var mc = new MySqlCommand(sql1, connect)) // UPDATE - обновление данных о госте
                 {
-                    //mc.Parameters.Add(new MySqlParameter("people_count", room.PeopleCount - 1));
                     mc.ExecuteNonQuery();
                 }
 
@@ -150,8 +143,31 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на выборку гостей(поиск гостей) по параметам имя, фамилия гостя и номера телефона гостя
-        // + запрос на фильтрацию по номерам комнат, по типу комнат
+        // запрос на выборку гостей(поиск гостя) по параметам ФИО гостя и номера телефона гостя
+        // + запрос на фильтрацию по номеру комнаты, по типу
+
+        internal IEnumerable<Guest> SearchYear(string searchText, Room selectedRoom, Year selectedYear)
+        {
+            try
+            {
+                string sql = "SELECT g.guest_id, g.name, g.secondname, g.phone_number, g.room_id, g.in_date, g.out_date, r.room_number as room_number FROM guests g, rooms r WHERE g.room_id = r.room_id";
+
+                sql += " AND( g.secondname LIKE '%" + searchText + "%'";
+                sql += " OR g.phone_number LIKE '%" + searchText + "%')";
+                if (selectedRoom != null && selectedRoom.Id != 0)
+                    sql += " AND g.room_id = " + selectedRoom.Id;
+                if (selectedYear != null && selectedYear.ID != 0)
+                    sql += " AND YEAR(g.out_date) = " + selectedYear.Title;
+                sql += " ORDER BY g.guest_id;";
+
+                return GetAllGuests(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
         internal IEnumerable<Guest> Search(string searchText, Room selectedRoom)
         {
             try
@@ -171,5 +187,52 @@ namespace HostelProject.mvvm.model
                 return null;
             }
         }
+
+        internal IEnumerable<Guest> SearchMonth(string searchText, Room selectedRoom, Month selectedMonth)
+        {
+            try
+            {
+                string sql = "SELECT g.guest_id, g.name, g.secondname, g.phone_number, g.room_id, g.in_date, g.out_date, r.room_number as room_number FROM guests g, rooms r WHERE g.room_id = r.room_id";
+                sql += " AND( g.secondname LIKE '%" + searchText + "%'";
+                sql += " OR g.phone_number LIKE '%" + searchText + "%')";
+                if (selectedRoom != null && selectedRoom.Id != 0)
+                    sql += " AND g.room_id = " + selectedRoom.Id;
+                if (selectedMonth != null && selectedMonth.ID != 0)
+                    sql += " AND MONTH(g.in_date) = " + selectedMonth.ID;
+
+                sql += " ORDER BY g.guest_id;";
+
+                return GetAllGuests(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
+        internal IEnumerable<Guest> SearchOutMonth(string searchText, Room selectedRoom, Month selectedMonth)
+        {
+            try
+            {
+                string sql = "SELECT g.guest_id, g.name, g.secondname, g.phone_number, g.room_id, g.in_date, g.out_date, r.room_number as room_number FROM guests g, rooms r WHERE g.room_id = r.room_id";
+
+                sql += " AND( g.secondname LIKE '%" + searchText + "%'";
+                sql += " OR g.phone_number LIKE '%" + searchText + "%')";
+                if (selectedRoom != null && selectedRoom.Id != 0)
+                    sql += " AND g.room_id = " + selectedRoom.Id;
+                if (selectedMonth != null && selectedMonth.ID != 0)
+                    sql += " AND MONTH(g.out_date) = " + selectedMonth.ID;
+                sql += " ORDER BY g.guest_id;";
+
+                return GetAllGuests(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
     }
 }
+

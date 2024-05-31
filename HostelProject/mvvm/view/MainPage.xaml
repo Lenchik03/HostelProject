@@ -13,14 +13,17 @@
         <vm:MainPageVM x:Key="mainPageVM"/>
     </Page.Resources>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/mvvm/view/фон.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TabControl>
+        <TabControl Margin="0,0,0,10">
             <TabItem Header="Гости">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Background="#FFEDC9B8">
                         <StackPanel Margin="3">
                             <TextBlock Text="Поиск по фамилии или номеру телефона" />
                             <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
@@ -29,12 +32,21 @@
                             <TextBlock Text="Фильтрация по номеру комнаты"/>
                             <ComboBox DisplayMemberPath="RoomNumber"
             SelectedItem="{Binding SelectedRoom}" 
-            ItemsSource="{Binding AllRooms}"/>
+            ItemsSource="{Binding AllRooms}">
+                                <ComboBox.Background>
+                                    <LinearGradientBrush EndPoint="0,1">
+                                        <GradientStop Color="#FFF0F0F0"/>
+                                        <GradientStop Color="#FFD47C4C" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ComboBox.Background>
+                            </ComboBox>
                         </StackPanel>
-                        
+
+
                     </StackPanel>
-                    <StackPanel Grid.Row="2">
-                        <ListView ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}">
+                    <StackPanel Grid.Row="2" Background="#FFEDC9B8">
+
+                        <ListView ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}" Background="#FFEDC9B8" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" MaxHeight="200">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
@@ -42,15 +54,16 @@
                                     <GridViewColumn Header="Номер телефона" DisplayMemberBinding="{Binding PhoneNumber}"/>
                                     <GridViewColumn Header="Номер комнаты"  DisplayMemberBinding="{Binding RoomNumber}"/>
                                     <GridViewColumn Header="Дата вселения" DisplayMemberBinding="{Binding InDate, StringFormat=dd.MM.yyyy}"/>
-                                    
+
 
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                       
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-                            <Button Content="Добавить гостя" Command="{Binding Create}" Margin="5"/>
-                            <Button Content="Редактировать гостя" Command="{Binding Edit}" Margin="5"/>
-                            <Button Content="Выселить гостя" Command="{Binding Delete}" Margin="5"/>
+                            <Button Content="Добавить гостя" Command="{Binding Create}" Margin="5" Background="#FFD47C4C"/>
+                            <Button Content="Редактировать гостя" Command="{Binding Edit}" Margin="5" Background="#FFD47C4C"/>
+                            <Button Content="Выселить гостя" Command="{Binding Delete}" Margin="5" Background="#FFD47C4C"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -59,8 +72,9 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Комнаты">
-                <StackPanel>
-                    <ListView ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}">
+                <StackPanel Background="#FFEDC9B8">
+
+                    <ListView ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" Background="#FFEDC9B8" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" MaxHeight="200">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding RoomNumber}" />
@@ -69,19 +83,22 @@
                                 <GridViewColumn Header="Тип комнаты" DisplayMemberBinding="{Binding Type}"/>
                             </GridView>
                         </ListView.View>
-                        
+
                     </ListView>
+                  
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-                        <Button Content="Добавить комнату" Command="{Binding CreateRoom}" Margin="5"/>
-                        <Button Content="Редактировать комнату" Command="{Binding EditRoom}" Margin="5"/>
-                        <Button Content="Удалить комнату" Command="{Binding RemoveRoom}" Margin="5"/>
+                        <Button Content="Добавить комнату" Command="{Binding CreateRoom}" Margin="5" Background="#FFD47C4C"/>
+                        <Button Content="Редактировать комнату" Command="{Binding EditRoom}" Margin="5" Background="#FFD47C4C"/>
+                        <Button Content="Удалить комнату" Command="{Binding RemoveRoom}" Margin="5" Background="#FFD47C4C"/>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
 
             <TabItem Header="Типы комнат">
-                <StackPanel>
-                    <ListView ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}">
+                <StackPanel Background="#FFEDC9B8">
+
+                    <ListView ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}" Background="#FFEDC9B8" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" MaxHeight="200">
+                        
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Название типа" DisplayMemberBinding="{Binding Title}"/>
@@ -90,10 +107,88 @@
                         </ListView.View>
 
                     </ListView>
+                    
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-                        <Button Content="Добавить тип" Command="{Binding CreateType}" Margin="5"/>
-                        <Button Content="Редактировать тип" Command="{Binding EditType}" Margin="5"/>
-                        <Button Content="Удалить тип" Command="{Binding DeleteType}" Margin="5"/>
+                        <Button Content="Добавить тип" Command="{Binding CreateType}" Margin="5" Background="#FFD47C4C"/>
+                        <Button Content="Редактировать тип" Command="{Binding EditType}" Margin="5" Background="#FFD47C4C"/>
+                        <Button Content="Удалить тип" Command="{Binding DeleteType}" Margin="5" Background="#FFD47C4C"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="История">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Background="#FFEDC9B8">
+                        <StackPanel Margin="3">
+                            <TextBlock Text="Поиск по фамилии или номеру телефона" />
+                            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Margin="3">
+                            <TextBlock Text="Фильтрация по номеру комнаты"/>
+                            <ComboBox DisplayMemberPath="RoomNumber"
+            SelectedItem="{Binding SelectedRoom}" 
+            ItemsSource="{Binding AllAllRooms}" Background="#FFD47C4C"/>
+                        </StackPanel>
+                        <StackPanel Margin="3">
+                            <TextBlock Text="Фильтрация по годам"/>
+                            <ComboBox DisplayMemberPath="Title"
+SelectedItem="{Binding SelectedInMonth}" 
+ItemsSource="{Binding AllYears}" Background="#FFD47C4C"/>
+                        </StackPanel>
+                        <StackPanel Margin="3">
+                            <TextBlock Text="Фильтрация по дате заселения"/>
+                            <ComboBox DisplayMemberPath="Title"
+SelectedItem="{Binding SelectedInMonth}" 
+ItemsSource="{Binding AllMonth}" Background="#FFD47C4C"/>
+                        </StackPanel>
+                        <StackPanel Margin="3">
+                            <TextBlock Text="Фильтрация по дате выселения"/>
+                            <ComboBox DisplayMemberPath="Title"
+SelectedItem="{Binding SelectedOutMonth}" 
+ItemsSource="{Binding AllMonth}" Background="#FFD47C4C"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <StackPanel Grid.Row="2">
+
+                        <ListView ItemsSource="{Binding AllGuests}" SelectedItem="{Binding SelectedGuest}" Background="#FFEDC9B8" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" MaxHeight="200">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding SecondName}" />
+                                    <GridViewColumn Header="Номер телефона" DisplayMemberBinding="{Binding PhoneNumber}"/>
+                                    <GridViewColumn Header="Номер комнаты"  DisplayMemberBinding="{Binding RoomNumber}"/>
+                                    <GridViewColumn Header="Дата вселения" DisplayMemberBinding="{Binding InDate, StringFormat=dd.MM.yyyy}"/>
+                                    <GridViewColumn Header="Дата выселения" DisplayMemberBinding="{Binding OutDate, StringFormat=dd.MM.yyyy}"/>
+
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                       
+
+                    </StackPanel>
+
+
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Года">
+                <StackPanel Background="#FFEDC9B8">
+
+                    <ListView ItemsSource="{Binding Years}" Background="#FFEDC9B8" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" MaxHeight="200">
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Год" DisplayMemberBinding="{Binding Title}"/>
+
+                            </GridView>
+                        </ListView.View>
+
+                    </ListView>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+                        <Button Content="Добавить год" Command="{Binding CreateYear}" Margin="5" Background="#FFD47C4C"/>
+                        
                     </StackPanel>
                 </StackPanel>
             </TabItem>

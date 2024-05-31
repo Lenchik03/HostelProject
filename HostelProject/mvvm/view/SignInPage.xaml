@@ -11,7 +11,7 @@
     <Page.Resources>
         <vm:SignInPageVM x:Key="signinvm"/>
     </Page.Resources>
-    <Grid>
+    <Grid Background="#FFEDC9B8">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="300"/>
@@ -30,8 +30,8 @@
             <Label Content="Введите пароль" FontSize="14" Margin="5"/>
             <PasswordBox x:Name="passwrdBox"/>
 
-            <Button Content="Войти" Height="25" Width="80" Margin="10" FontWeight="Bold" Command="{Binding Open}"/>
-            <Button Content="Зарегистрироваться" Height="25" Width="150" Margin="10" FontWeight="Bold" Command="{Binding Registration}"/>
+            <Button Content="Войти" Height="25" Width="80" Margin="10" FontWeight="Bold" Command="{Binding Open}" Background="#FFD98A61"/>
+            <Button Content="Зарегистрироваться" Height="25" Width="150" Margin="10" FontWeight="Bold" Command="{Binding Registration}" Background="#FFD98A61"/>
 
         </StackPanel>
     </Grid>

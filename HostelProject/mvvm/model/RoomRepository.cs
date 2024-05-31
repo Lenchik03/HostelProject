@@ -23,13 +23,13 @@ namespace HostelProject.mvvm.model
         }
 
         // запрос на чтение всех номеров с БД
-        internal IEnumerable<Room> GetAllRooms()
+        internal IEnumerable<Room> GetAllRooms(string sql)
         {
             var result = new List<Room>();
             var connect = MySqlDB.Instance.GetConnection();
             if (connect == null)
                 return result;
-            string sql = "SELECT r.room_id, r.room_number, r.price, r.capacity_id, r.type_id, r.people_count, r.capacity, c.title as capacitytitle, t.title as type FROM rooms r, capacities c, types t WHERE r.capacity_id = c.capacity_id AND r.type_id = t.type_id AND r.del = 0;";
+            
             using (var mc = new MySqlCommand(sql, connect))
             using (var reader = mc.ExecuteReader())
             {
@@ -68,7 +68,7 @@ namespace HostelProject.mvvm.model
                 int id = MySqlDB.Instance.GetAutoID("rooms");
 
                 string sql = "INSERT INTO rooms VALUES (0, @room_number, @price, @capacity_id, @type_id, @people_count, @capacity, @del)";
-                using (var mc = new MySqlCommand(sql, connect)) // INSERT - добавление номеров в БД
+                using (var mc = new MySqlCommand(sql, connect)) // INSERT - добавление номера в БД
                 {
                     mc.Parameters.Add(new MySqlParameter("room_number", room.RoomNumber));
                     mc.Parameters.Add(new MySqlParameter("price", room.Price));
@@ -86,7 +86,7 @@ namespace HostelProject.mvvm.model
             }
         }
 
-        // запрос на редактирование номера в БД(кнопка "Редактировать номер")
+        // запрос на редактирование номера в БД(кнопка "Редактировать номера")
         internal void Update(Room room)
         {
             try
@@ -132,7 +132,7 @@ namespace HostelProject.mvvm.model
                     mc.ExecuteNonQuery();
                 }
                 string sql1 = "UPDATE guests SET out_date = @out_date WHERE room_id = '" + room.Id + "';";
-                using (var mc = new MySqlCommand(sql1, connect)) // INSERT - добавление гостей в БД
+                using (var mc = new MySqlCommand(sql1, connect)) // INSERT - добавление номеров в БД
                 {
                     mc.Parameters.Add(new MySqlParameter("out_date", DateTime.Now));
                     mc.ExecuteNonQuery();
@@ -178,7 +178,7 @@ namespace HostelProject.mvvm.model
                     return;
                 }
                 string sql1 = "UPDATE rooms SET people_count = @people_count WHERE room_id = '" + room.Id + "';";
-                using (var mc = new MySqlCommand(sql1, connect)) // INSERT - обновление клиента в БД
+                using (var mc = new MySqlCommand(sql1, connect)) // INSERT - добавление гостей в БД
                 {
                     mc.Parameters.Add(new MySqlParameter("people_count", room.PeopleCount - 1));
                     mc.ExecuteNonQuery();

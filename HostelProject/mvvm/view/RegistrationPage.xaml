@@ -12,7 +12,7 @@
         <vm:RegistrationPageVM x:Key="registrVM"/>
     </Page.Resources>
 
-    <Grid>
+    <Grid Background="#FFEDC9B8">
         <Grid.RowDefinitions>
         <RowDefinition Height="33*"/>
         <RowDefinition Height="Auto" MinHeight="384.32"/>
@@ -38,6 +38,6 @@
 
 
     </StackPanel>
-    <Button Content="Зарегистрироваться" Height="25" Width="130" Margin="10,320,10,40" FontWeight="Bold" Command="{Binding Save}" Grid.Row="1" Grid.Column="1"/>
+    <Button Content="Зарегистрироваться" Height="25" Width="130" Margin="10,320,10,40" FontWeight="Bold" Command="{Binding Save}" Grid.Row="1" Grid.Column="1" Background="#FFD98A61"/>
     </Grid>
 </Page>
